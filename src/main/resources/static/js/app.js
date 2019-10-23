@@ -7,12 +7,15 @@ var app = (function () {
 
         getPromise.then(
             function (data,status){
+                markers = [];
                 $("#listAirports tbody").empty();
                 JSON.parse(data).map(function (value, index) {
                     var toAdd = '<tr><td>'+value.code+'</td><td>'+value.name+'</td><td>'+value.city+'</td><td>'+value.countryCode+'</td></tr>'
                     $("#listAirports tbody").append(toAdd);
+                    markers.push(value.location);
                 });
-                console.log(data);
+
+                plotMarkers(markers);
             },
             function () {
                 console.log("Bad request");
@@ -21,6 +24,28 @@ var app = (function () {
         return getPromise;
 
 
+    };
+
+    var plotMarkers = function (m)
+    {
+        markers = [];
+        bounds = new google.maps.LatLngBounds();
+
+        m.forEach(function (marker) {
+            var position = new google.maps.LatLng(marker.lat, marker.lng);
+
+            markers.push(
+                new google.maps.Marker({
+                    position: position,
+                    map: map,
+                    animation: google.maps.Animation.DROP
+                })
+            );
+
+            bounds.extend(position);
+        });
+
+        map.fitBounds(bounds);
     };
 
 
@@ -34,10 +59,10 @@ var app = (function () {
         },
 
         init : function(){
-            /*map = new google.maps.Map(document.getElementById('map'), {
+            map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: -34.397, lng: 150.644},
                 zoom: 8
-            });*/
+            });
 
 
         }
