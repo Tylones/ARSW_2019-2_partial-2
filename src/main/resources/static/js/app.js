@@ -14,7 +14,7 @@ var app = (function () {
                     $("#listAirports tbody").append(toAdd);
                     markers.push(value.location);
                 });
-
+                document.getElementById("map").style.display = "block";
                 plotMarkers(markers);
             },
             function () {
@@ -32,7 +32,7 @@ var app = (function () {
         bounds = new google.maps.LatLngBounds();
 
         m.forEach(function (marker) {
-            var position = new google.maps.LatLng(marker.lat, marker.lng);
+            var position = new google.maps.LatLng(marker.latitude, marker.longitude);
 
             markers.push(
                 new google.maps.Marker({
