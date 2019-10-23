@@ -32,7 +32,7 @@ public class AirportsFinderServices {
             Response res = client.newCall(request).execute();
             if(res.isSuccessful()){
                 cache.storeRequest(locationName, res.body().string());
-                return res.body().string();
+                return cache.getStoredRequest(locationName);
             }else {
                 throw new BadLocationException("Bad location");
             }
