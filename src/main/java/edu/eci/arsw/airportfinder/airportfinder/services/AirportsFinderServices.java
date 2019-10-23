@@ -16,6 +16,14 @@ public class AirportsFinderServices {
     @Autowired
     AirportsFinderCache cache;
 
+
+    /**
+     * This function returns the response corresponding to the requested location
+     * @param locationName the requested location
+     * @return a String corresponding at the response of the API
+     * @throws IOException
+     * @throws BadLocationException
+     */
     public String getAirports(String locationName) throws IOException, BadLocationException {
         String response = null;
         response = cache.getStoredRequest(locationName);

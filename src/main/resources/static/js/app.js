@@ -1,21 +1,21 @@
 var app = (function () {
 
     var map;
+    var m = [];
 
     var getAirports = function (locationName) {
         var getPromise = $.get("/Airports/"+locationName);
 
         getPromise.then(
             function (data,status){
-                markers = [];
+
                 $("#listAirports tbody").empty();
                 JSON.parse(data).map(function (value, index) {
                     var toAdd = '<tr><td>'+value.code+'</td><td>'+value.name+'</td><td>'+value.city+'</td><td>'+value.countryCode+'</td></tr>'
                     $("#listAirports tbody").append(toAdd);
-                    markers.push(value.location);
+                    m.push(value.location);
                 });
-                document.getElementById("map").style.display = "block";
-                plotMarkers(markers);
+
             },
             function () {
                 console.log("Bad request");
@@ -54,7 +54,11 @@ var app = (function () {
         searchAirports: function(){
             var locationName =  document.getElementById("locationInput").value;
 
-            getAirports(locationName);
+            getAirports(locationName).then(function () {
+                document.getElementById("map").style.display = "block";
+                plotMarkers(m);
+
+            });
 
         },
 

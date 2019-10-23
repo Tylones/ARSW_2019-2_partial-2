@@ -17,6 +17,11 @@ public class AirportsFinderController {
     @Autowired
     AirportsFinderServices airportService;
 
+    /**
+     * This function manages all GET requests made to "/Airports/{locationName}
+     * @param locationName the location requested
+     * @return the response
+     */
     @RequestMapping(method = RequestMethod.GET, path = "/{locationName}")
     public ResponseEntity<?> getAirports (@PathVariable String locationName){
         try{
