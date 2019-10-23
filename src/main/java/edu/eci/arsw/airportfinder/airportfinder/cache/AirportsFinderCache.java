@@ -1,6 +1,7 @@
 package edu.eci.arsw.airportfinder.airportfinder.cache;
 
-import edu.eci.arsw.airportfinder.airportfinder.blueprints.persistence.impl.Tuple;
+
+import edu.eci.arsw.airportfinder.airportfinder.cache.impl.Tuple;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
